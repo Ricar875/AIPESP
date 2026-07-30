@@ -1,1 +1,578 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>AIPESP — Associação de Imigrantes Peruanos do Estado de São Paulo</title>
+<meta name="description" content="AIPESP: acolhimento, orientação e cultura peruana em São Paulo.">
+
+<!-- ============================================================
+     CONFIG — edite aqui nomes, cargos, contatos e textos rápidos.
+     Não é preciso mexer no resto do arquivo para trocar essas infos.
+     ============================================================ -->
+<script>
+const CONFIG = {
+  nomeAssociacao: "AIPESP — Associação de Imigrantes Peruanos do Estado de São Paulo",
+  cidade: "São Paulo, Brasil",
+  email: "contato@aipesp.org.br",
+  whatsapp: "5511900000000",
+  instagram: "https://instagram.com/aipesp",
+
+  diretoria: [
+    { cargo: "Presidente",         nome: "[Nome do(a) Presidente]",        letra: "P" },
+    { cargo: "Vice-Presidente",    nome: "[Nome do(a) Vice-Presidente]",   letra: "V" },
+    { cargo: "Tesoureiro(a)",      nome: "[Nome do(a) Tesoureiro(a)]",     letra: "T" },
+    { cargo: "Secretário(a)",      nome: "[Nome do(a) Secretário(a)]",     letra: "S" }
+  ]
+};
+</script>
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@500;600;700&family=Lora:ital,wght@0,400;0,500;0,600;1,400&display=swap" rel="stylesheet">
+
+<style>
+  :root{
+    --indigo-deep:#12183a;
+    --indigo-mid:#1c2657;
+    --indigo-soft:#2a3576;
+    --gold:#c9a13b;
+    --gold-bright:#f0c869;
+    --red-peru:#c81430;
+    --bronze:#8a6435;
+    --cream:#f4ecd8;
+    --stone:#efe9d8;
+    --ink:#20182a;
+    --max:1180px;
+  }
+
+  *{box-sizing:border-box;}
+  html{scroll-behavior:smooth;}
+  @media (prefers-reduced-motion: reduce){
+    html{scroll-behavior:auto;}
+    *{animation-duration:0.001ms !important; transition-duration:0.001ms !important;}
+  }
+
+  body{
+    margin:0;
+    background:var(--cream);
+    color:var(--ink);
+    font-family:'Lora', serif;
+    line-height:1.65;
+  }
+
+  h1,h2,h3,.eyebrow{
+    font-family:'Cinzel', serif;
+    letter-spacing:.03em;
+  }
+
+  a{color:inherit;}
+
+  /* -------- chakana step-diamond motif, used as a quiet divider -------- */
+  .chakana-rule{
+    height:14px;
+    margin:0 auto;
+    width:100%;
+    background-image:
+      linear-gradient(45deg, var(--gold) 25%, transparent 25%),
+      linear-gradient(-45deg, var(--gold) 25%, transparent 25%);
+    background-size:14px 14px;
+    background-position:0 0;
+    opacity:.55;
+  }
+
+  /* ================= NAV ================= */
+  header{
+    position:sticky; top:0; z-index:50;
+    background:var(--indigo-deep);
+    border-bottom:3px solid var(--gold);
+  }
+  .nav-inner{
+    max-width:var(--max); margin:0 auto;
+    display:flex; align-items:center; justify-content:space-between;
+    padding:.6rem 1.2rem;
+  }
+  .brand{
+    display:flex; align-items:center; gap:.7rem;
+    color:var(--gold-bright);
+    text-decoration:none;
+    font-family:'Cinzel', serif;
+    font-weight:700;
+    font-size:1.05rem;
+  }
+  .brand-svg{
+    height:44px; width:44px; border-radius:50%;
+    border:2px solid var(--gold);
+    object-fit:cover;
+    flex-shrink:0;
+  }
+  nav ul{
+    list-style:none; display:flex; gap:1.6rem; margin:0; padding:0;
+  }
+  nav a{
+    text-decoration:none;
+    color:var(--stone);
+    font-size:.86rem;
+    letter-spacing:.05em;
+    text-transform:uppercase;
+    padding:.4rem 0;
+    border-bottom:2px solid transparent;
+    transition:border-color .2s, color .2s;
+  }
+  nav a:hover, nav a.active{
+    color:var(--gold-bright);
+    border-color:var(--gold);
+  }
+  .menu-btn{
+    display:none;
+    background:none; border:1px solid var(--gold);
+    color:var(--gold-bright);
+    font-size:1.3rem;
+    padding:.25rem .6rem;
+    border-radius:6px;
+    cursor:pointer;
+  }
+  @media (max-width:860px){
+    .menu-btn{display:block;}
+    nav{
+      position:absolute; top:100%; left:0; right:0;
+      background:var(--indigo-deep);
+      border-bottom:3px solid var(--gold);
+      max-height:0; overflow:hidden;
+      transition:max-height .3s ease;
+    }
+    nav.open{max-height:400px;}
+    nav ul{flex-direction:column; gap:0; padding:.5rem 1.2rem 1rem;}
+    nav a{display:block; padding:.7rem 0; border-bottom:1px solid rgba(255,255,255,.08);}
+  }
+
+  /* ================= HERO ================= */
+  .hero{
+    position:relative;
+    background:
+      radial-gradient(ellipse at 50% -10%, var(--indigo-soft) 0%, var(--indigo-deep) 55%, #0b0f28 100%);
+    color:var(--stone);
+    padding:5.5rem 1.2rem 4.5rem;
+    text-align:center;
+    overflow:hidden;
+  }
+  .hero::before{
+    content:"";
+    position:absolute; inset:0;
+    background-image:
+      repeating-linear-gradient(45deg, rgba(201,161,59,.06) 0 2px, transparent 2px 26px),
+      repeating-linear-gradient(-45deg, rgba(201,161,59,.06) 0 2px, transparent 2px 26px);
+    pointer-events:none;
+  }
+  .hero-inner{position:relative; max-width:760px; margin:0 auto;}
+  .hero img.seal{
+    width:150px; height:150px; border-radius:50%;
+    border:3px solid var(--gold);
+    box-shadow:0 0 0 6px rgba(201,161,59,.15), 0 20px 50px rgba(0,0,0,.45);
+    margin-bottom:1.6rem;
+    object-fit:cover;
+  }
+  .eyebrow{
+    color:var(--gold-bright);
+    font-size:.78rem;
+    text-transform:uppercase;
+    letter-spacing:.22em;
+    margin:0 0 .9rem;
+  }
+  .hero h1{
+    font-size:clamp(1.8rem, 4.5vw, 2.9rem);
+    margin:0 0 1rem;
+    color:#fff;
+  }
+  .hero p.lead{
+    font-size:1.12rem;
+    color:var(--stone);
+    opacity:.92;
+    max-width:620px;
+    margin:0 auto;
+  }
+
+  /* ================= SECTIONS ================= */
+  section{padding:4.2rem 1.2rem;}
+  .section-inner{max-width:var(--max); margin:0 auto;}
+  .section-head{text-align:center; max-width:680px; margin:0 auto 2.6rem;}
+  .section-head .eyebrow{color:var(--bronze);}
+  .section-head h2{font-size:clamp(1.5rem,3.2vw,2.1rem); margin:.2rem 0 .8rem; color:var(--indigo-deep);}
+  .section-head p{color:#5a5342; margin:0;}
+
+  section:where(:nth-of-type(odd)){background:var(--cream);}
+  section:where(:nth-of-type(even)){background:var(--stone);}
+
+  /* ---- Missão / Objetivo cards ---- */
+  .mission-grid{
+    display:grid; gap:1.6rem;
+    grid-template-columns:repeat(auto-fit, minmax(230px,1fr));
+  }
+  .mission-card{
+    background:#fff;
+    border:1px solid #e4dabf;
+    border-top:4px solid var(--gold);
+    border-radius:6px;
+    padding:1.8rem 1.5rem;
+  }
+  .mission-card h3{
+    font-size:1.05rem; margin:0 0 .6rem; color:var(--indigo-deep);
+  }
+  .mission-card p{margin:0; color:#4a4536; font-size:.96rem;}
+
+  /* ---- Diretoria ---- */
+  .board-grid{
+    display:grid; gap:1.8rem;
+    grid-template-columns:repeat(auto-fit, minmax(230px,1fr));
+  }
+  .board-card{
+    text-align:center;
+    background:linear-gradient(180deg,#fff, #fbf6e8);
+    border:1px solid #e4dabf;
+    border-radius:8px;
+    padding:2rem 1.2rem 1.6rem;
+  }
+  .board-avatar{
+    width:82px; height:82px; margin:0 auto 1rem;
+    border-radius:50%;
+    background:radial-gradient(circle at 35% 30%, var(--gold-bright), var(--gold) 55%, var(--bronze) 100%);
+    display:flex; align-items:center; justify-content:center;
+    font-family:'Cinzel', serif; font-weight:700; font-size:1.6rem;
+    color:var(--indigo-deep);
+    border:2px solid var(--bronze);
+  }
+  .board-card .cargo{
+    text-transform:uppercase; letter-spacing:.1em; font-size:.74rem;
+    color:var(--red-peru); font-weight:600; margin-bottom:.35rem;
+  }
+  .board-card .nome{font-family:'Cinzel', serif; font-size:1rem; color:var(--indigo-deep);}
+
+  /* ---- Serviços ---- */
+  .services-grid{
+    display:grid; gap:1.4rem;
+    grid-template-columns:repeat(auto-fit, minmax(250px,1fr));
+  }
+  .service-card{
+    background:#fff; border-radius:8px; padding:1.6rem;
+    border-left:4px solid var(--red-peru);
+    box-shadow:0 4px 14px rgba(20,20,50,.05);
+  }
+  .service-card h3{margin:0 0 .5rem; font-size:1rem; color:var(--indigo-deep);}
+  .service-card p{margin:0; font-size:.94rem; color:#4a4536;}
+  .service-note{
+    margin-top:2rem; padding:1.2rem 1.4rem;
+    background:var(--indigo-deep); color:var(--stone);
+    border-radius:8px; font-size:.94rem; text-align:center;
+  }
+  .service-note strong{color:var(--gold-bright);}
+
+  /* ---- Comércio internacional ---- */
+  .country-grid{
+    display:grid; gap:.9rem;
+    grid-template-columns:repeat(auto-fill, minmax(170px,1fr));
+  }
+  .country-card{
+    background:#fff; border:1px solid #e4dabf;
+    border-radius:8px; padding:.9rem 1rem;
+    display:flex; align-items:center; gap:.7rem;
+  }
+  .country-card .flag{font-size:1.6rem; line-height:1;}
+  .country-card .name{font-size:.9rem; font-weight:600; color:var(--indigo-deep);}
+  .country-card .cap{font-size:.76rem; color:#7a715c;}
+
+  /* ---- Celebrações ---- */
+  .cal-grid{
+    display:grid; gap:1.2rem;
+    grid-template-columns:repeat(auto-fit, minmax(260px,1fr));
+  }
+  .cal-card{
+    background:#fff; border-radius:8px; overflow:hidden;
+    border:1px solid #e4dabf;
+  }
+  .cal-date{
+    background:var(--red-peru); color:#fff;
+    padding:.6rem 1rem; font-family:'Cinzel', serif;
+    font-size:.82rem; letter-spacing:.05em; text-transform:uppercase;
+  }
+  .cal-body{padding:1.1rem 1.2rem;}
+  .cal-body h3{margin:0 0 .4rem; font-size:1rem; color:var(--indigo-deep);}
+  .cal-body p{margin:0; font-size:.92rem; color:#4a4536;}
+
+  /* ================= FOOTER ================= */
+  footer{
+    background:var(--indigo-deep); color:var(--stone);
+    padding:2.6rem 1.2rem 1.6rem; text-align:center;
+  }
+  footer .brand-line{
+    font-family:'Cinzel', serif; color:var(--gold-bright);
+    margin-bottom:.6rem; font-size:1rem;
+  }
+  footer p{margin:.3rem 0; font-size:.86rem; opacity:.85;}
+  footer .links{margin-top:1rem; display:flex; gap:1.4rem; justify-content:center; flex-wrap:wrap;}
+  footer .links a{font-size:.82rem; text-decoration:none; color:var(--stone); border-bottom:1px solid rgba(255,255,255,.25);}
+
+  /* reveal on scroll */
+  .reveal{opacity:0; transform:translateY(16px); transition:opacity .6s ease, transform .6s ease;}
+  .reveal.in{opacity:1; transform:none;}
+
+  :focus-visible{outline:3px solid var(--gold-bright); outline-offset:2px;}
+</style>
+</head>
+<body>
+
+<header>
+  <div class="nav-inner">
+    <a href="#inicio" class="brand">
+      <img class="brand-svg" src="logo.jpg" alt="Selo da AIPESP">
+      <span>AIPESP</span>
+    </a>
+    <button class="menu-btn" id="menuBtn" aria-label="Abrir menu" aria-expanded="false">☰</button>
+    <nav id="mainNav">
+      <ul>
+        <li><a href="#inicio">Início</a></li>
+        <li><a href="#diretoria">Diretoria</a></li>
+        <li><a href="#servicos">Serviços</a></li>
+        <li><a href="#comercio">Comércio</a></li>
+        <li><a href="#celebracoes">Celebrações</a></li>
+      </ul>
+    </nav>
+  </div>
+</header>
+
+<!-- ============ 1. INÍCIO — Apresentação, Missão, Objetivo ============ -->
+<section id="inicio" class="hero">
+  <div class="hero-inner">
+    <img class="seal" src="logo.jpg" alt="Selo oficial da AIPESP">
+    <p class="eyebrow">Comunidade Peruana em São Paulo</p>
+    <h1>Associação de Imigrantes Peruanos do Estado de São Paulo</h1>
+    <p class="lead">Um ponto de encontro para quem chegou de longe: acolhimento, orientação e a força de manter viva a cultura do Peru em terras paulistas.</p>
+  </div>
+</section>
+
+<div class="chakana-rule"></div>
+
+<section>
+  <div class="section-inner">
+    <div class="section-head">
+      <p class="eyebrow">Quem somos</p>
+      <h2>Missão e objetivo</h2>
+      <p>A AIPESP nasce da experiência de quem já trilhou o caminho da imigração — e quer tornar esse caminho mais leve para quem chega agora.</p>
+    </div>
+    <div class="mission-grid">
+      <div class="mission-card reveal">
+        <h3>Missão</h3>
+        <p>Acolher, orientar e representar a comunidade peruana no Estado de São Paulo, oferecendo suporte prático na chegada, na regularização e na vida cotidiana, sem que ninguém precise atravessar esse processo sozinho.</p>
+      </div>
+      <div class="mission-card reveal">
+        <h3>Objetivo</h3>
+        <p>Fortalecer os laços entre imigrantes peruanos e a sociedade brasileira, promovendo integração, geração de renda e preservação da identidade cultural do Peru através de ações contínuas de apoio.</p>
+      </div>
+      <div class="mission-card reveal">
+        <h3>Valores</h3>
+        <p>Solidariedade entre compatriotas, respeito à diversidade sul-americana, transparência na gestão da associação e orgulho da herança andina que carregamos.</p>
+      </div>
+      <div class="mission-card reveal">
+        <h3>Visão</h3>
+        <p>Ser a principal referência de apoio e representação da comunidade peruana em São Paulo, reconhecida tanto pelos imigrantes quanto pelas instituições locais.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ 3. DIRETORIA ============ -->
+<section id="diretoria">
+  <div class="section-inner">
+    <div class="section-head">
+      <p class="eyebrow">Governança</p>
+      <h2>Diretoria</h2>
+      <p>Uma diretoria voluntária, eleita pelos associados, responsável por conduzir a AIPESP com transparência.</p>
+    </div>
+    <div class="board-grid" id="boardGrid"></div>
+  </div>
+</section>
+
+<!-- ============ 4. SERVIÇOS ============ -->
+<section id="servicos">
+  <div class="section-inner">
+    <div class="section-head">
+      <p class="eyebrow">Apoio direto</p>
+      <h2>Serviços para imigrantes sul-americanos e hispanofalantes</h2>
+      <p>Orientação gratuita para peruanos e demais imigrantes de língua espanhola que vivem ou estão chegando a São Paulo.</p>
+    </div>
+    <div class="services-grid">
+      <div class="service-card reveal">
+        <h3>Orientação para residência</h3>
+        <p>Acompanhamento sobre o processo de residência no Brasil junto à Polícia Federal, documentação necessária e prazos do CPF, RNM e visto do Mercosul.</p>
+      </div>
+      <div class="service-card reveal">
+        <h3>Regularização documental</h3>
+        <p>Apoio no preenchimento de formulários, tradução juramentada, apostilamento de documentos peruanos e reconhecimento de diplomas.</p>
+      </div>
+      <div class="service-card reveal">
+        <h3>Acolhida ao recém-chegado</h3>
+        <p>Primeiros passos em São Paulo: moradia, transporte, abertura de conta bancária e cadastro em serviços públicos (SUS, CadÚnico).</p>
+      </div>
+      <div class="service-card reveal">
+        <h3>Inserção no mercado de trabalho</h3>
+        <p>Divulgação de vagas, orientação sobre CLT e direitos trabalhistas, e conexão com empreendedores peruanos já estabelecidos.</p>
+      </div>
+      <div class="service-card reveal">
+        <h3>Orientação jurídica e social</h3>
+        <p>Encaminhamento a parceiros para questões jurídicas, assistência social e atendimento psicológico, em espanhol quando necessário.</p>
+      </div>
+      <div class="service-card reveal">
+        <h3>Português para hispanofalantes</h3>
+        <p>Rodas de conversa e apoio ao aprendizado do português, pensadas especificamente para quem já fala espanhol.</p>
+      </div>
+    </div>
+    <div class="service-note">
+      Atendimento em <strong>espanhol e português</strong>. Fale com a AIPESP pelo WhatsApp ou e-mail institucional.
+    </div>
+  </div>
+</section>
+
+<!-- ============ 5. COMÉRCIO / RELAÇÕES SUL-AMERICANAS ============ -->
+<section id="comercio">
+  <div class="section-inner">
+    <div class="section-head">
+      <p class="eyebrow">Integração regional</p>
+      <h2>Relações comerciais com a América do Sul</h2>
+      <p>A AIPESP também aproxima empreendedores e comerciantes peruanos de oportunidades com os demais países da região.</p>
+    </div>
+    <div class="country-grid" id="countryGrid"></div>
+  </div>
+</section>
+
+<!-- ============ 6. CELEBRAÇÕES ============ -->
+<section id="celebracoes">
+  <div class="section-inner">
+    <div class="section-head">
+      <p class="eyebrow">Calendário cultural</p>
+      <h2>Celebrações do território peruano</h2>
+      <p>Datas que a AIPESP promove ou apoia ao longo do ano, mantendo viva a cultura do Peru em São Paulo.</p>
+    </div>
+    <div class="cal-grid" id="calGrid"></div>
+  </div>
+</section>
+
+<footer>
+  <div class="brand-line">AIPESP</div>
+  <p id="footerName"></p>
+  <p id="footerCity"></p>
+  <div class="links">
+    <a id="linkEmail" href="#">E-mail</a>
+    <a id="linkWhats" href="#" target="_blank" rel="noopener">WhatsApp</a>
+    <a id="linkInsta" href="#" target="_blank" rel="noopener">Instagram</a>
+  </div>
+</footer>
+
+<script>
+// ---------- dados vindos do CONFIG ----------
+document.getElementById("footerName").textContent = CONFIG.nomeAssociacao;
+document.getElementById("footerCity").textContent = CONFIG.cidade;
+document.getElementById("linkEmail").href = "mailto:" + CONFIG.email;
+document.getElementById("linkEmail").textContent = CONFIG.email;
+document.getElementById("linkWhats").href = "https://wa.me/" + CONFIG.whatsapp;
+document.getElementById("linkInsta").href = CONFIG.instagram;
+
+// ---------- Diretoria ----------
+const boardGrid = document.getElementById("boardGrid");
+CONFIG.diretoria.forEach(function(m){
+  const card = document.createElement("div");
+  card.className = "board-card reveal";
+  card.innerHTML =
+    '<div class="board-avatar">' + m.letra + '</div>' +
+    '<div class="cargo">' + m.cargo + '</div>' +
+    '<div class="nome">' + m.nome + '</div>';
+  boardGrid.appendChild(card);
+});
+
+// ---------- Países da América do Sul (comércio) ----------
+const countries = [
+  { flag:"🇵🇪", name:"Peru", cap:"Lima" },
+  { flag:"🇧🇷", name:"Brasil", cap:"Brasília" },
+  { flag:"🇧🇴", name:"Bolívia", cap:"Sucre / La Paz" },
+  { flag:"🇨🇱", name:"Chile", cap:"Santiago" },
+  { flag:"🇨🇴", name:"Colômbia", cap:"Bogotá" },
+  { flag:"🇪🇨", name:"Equador", cap:"Quito" },
+  { flag:"🇬🇾", name:"Guiana", cap:"Georgetown" },
+  { flag:"🇵🇾", name:"Paraguai", cap:"Assunção" },
+  { flag:"🇸🇷", name:"Suriname", cap:"Paramaribo" },
+  { flag:"🇺🇾", name:"Uruguai", cap:"Montevidéu" },
+  { flag:"🇻🇪", name:"Venezuela", cap:"Caracas" },
+  { flag:"🇦🇷", name:"Argentina", cap:"Buenos Aires" }
+];
+const countryGrid = document.getElementById("countryGrid");
+countries.forEach(function(c){
+  const el = document.createElement("div");
+  el.className = "country-card reveal";
+  el.innerHTML =
+    '<span class="flag">' + c.flag + '</span>' +
+    '<span><span class="name">' + c.name + '</span><br><span class="cap">' + c.cap + '</span></span>';
+  countryGrid.appendChild(el);
+});
+
+// ---------- Calendário de celebrações peruanas ----------
+const celebracoes = [
+  { data:"1 de janeiro", titulo:"Año Nuevo", texto:"Celebração da virada do ano, com tradições próprias em todo o Peru." },
+  { data:"Fevereiro (móvel)", titulo:"Virgem da Candelária", texto:"Uma das maiores festas religiosas e de dança do Peru, celebrada em Puno." },
+  { data:"Março/Abril (móvel)", titulo:"Semana Santa", texto:"Procissões e tradições marcantes, com destaque para Ayacucho." },
+  { data:"1º de maio", titulo:"Día del Trabajo", texto:"Feriado nacional peruano em homenagem aos trabalhadores." },
+  { data:"24 de junho", titulo:"Inti Raymi", texto:"Festival do Sol, celebração inca da colheita realizada em Cusco." },
+  { data:"28 e 29 de julho", titulo:"Fiestas Patrias", texto:"Independência do Peru — a data mais importante do calendário nacional." },
+  { data:"30 de agosto", titulo:"Santa Rosa de Lima", texto:"Homenagem à padroeira do Peru e das Américas." },
+  { data:"8 de outubro", titulo:"Combate de Angamos", texto:"Data cívica em memória da Guerra do Pacífico." },
+  { data:"1º de novembro", titulo:"Todos os Santos", texto:"Celebração e visita aos entes queridos, com tradições familiares." },
+  { data:"8 de dezembro", titulo:"Inmaculada Concepción", texto:"Feriado religioso celebrado em todo o território peruano." },
+  { data:"25 de dezembro", titulo:"Navidad", texto:"Celebração natalina com pratos típicos peruanos à mesa." }
+];
+const calGrid = document.getElementById("calGrid");
+celebracoes.forEach(function(c){
+  const el = document.createElement("div");
+  el.className = "cal-card reveal";
+  el.innerHTML =
+    '<div class="cal-date">' + c.data + '</div>' +
+    '<div class="cal-body"><h3>' + c.titulo + '</h3><p>' + c.texto + '</p></div>';
+  calGrid.appendChild(el);
+});
+
+// ---------- menu mobile ----------
+const menuBtn = document.getElementById("menuBtn");
+const mainNav = document.getElementById("mainNav");
+menuBtn.addEventListener("click", function(){
+  const open = mainNav.classList.toggle("open");
+  menuBtn.setAttribute("aria-expanded", open);
+});
+mainNav.querySelectorAll("a").forEach(function(a){
+  a.addEventListener("click", function(){ mainNav.classList.remove("open"); });
+});
+
+// ---------- nav ativo por seção visível ----------
+const sections = document.querySelectorAll("section[id]");
+const navLinks = document.querySelectorAll("nav a");
+const navObserver = new IntersectionObserver(function(entries){
+  entries.forEach(function(entry){
+    if(entry.isIntersecting){
+      navLinks.forEach(function(l){ l.classList.remove("active"); });
+      const link = document.querySelector('nav a[href="#' + entry.target.id + '"]');
+      if(link) link.classList.add("active");
+    }
+  });
+}, { rootMargin: "-45% 0px -50% 0px" });
+sections.forEach(function(s){ navObserver.observe(s); });
+
+// ---------- reveal on scroll ----------
+const revealObserver = new IntersectionObserver(function(entries){
+  entries.forEach(function(entry){
+    if(entry.isIntersecting){
+      entry.target.classList.add("in");
+      revealObserver.unobserve(entry.target);
+    }
+  });
+}, { threshold: 0.12 });
+document.querySelectorAll(".reveal").forEach(function(el){ revealObserver.observe(el); });
+</script>
+
+</body>
+</html>
 
